@@ -133,6 +133,20 @@ app.get("/get-my-events/:userId", async (req, res) => {
 });
 
 
+app.get("/get-event/:id", async (req, res) => {
+    const { id } = req.params;
+    console.log("Event id", id);
+
+
+    try {
+        const event = await eventdb.findById(id);
+        res.status(200).json(event);
+    } catch (error) {
+        res.status(500).json({ message: "Server Error", error });
+    }
+});
+
+
 app.listen(PORT, () => {
     console.log(`server start at port no ${PORT}`)
 })
